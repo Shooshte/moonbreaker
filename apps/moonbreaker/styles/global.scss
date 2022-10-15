@@ -1,0 +1,25 @@
+@import './_variables';
+
+html {
+  font-family: $font-family;
+  font-size: $base-font-size;
+  height: 100%;
+  width: 100%;
+}
+
+.text {
+  font-size: map-get($font-sizes, '5');
+  line-height: map-get($line-height-sizes, '5');
+  margin-bottom: map-get($spacing-sizes, '5');
+  max-width: $max-text-width;
+}
+
+@each $number, $font-size in $font-sizes {
+  .heading-#{$number} {
+    font-size: $font-size;
+    line-height: map-get($line-height-sizes, $number);
+    margin-bottom: map-get($spacing-sizes, $number);
+    max-width: $max-text-width;
+    padding: 0;
+  }
+}
