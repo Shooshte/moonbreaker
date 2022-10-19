@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { SessionProvider } from 'next-auth/react';
 
-import './styles.css';
+import '../styles/reset.scss';
+import '../styles/global.scss';
 
 import type { AppProps } from 'next/app';
 

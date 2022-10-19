@@ -43,3 +43,5 @@ Thumbs.db
 
 # local environment settings
 .env
+
+apps/moonbreaker/pages/api/units/
