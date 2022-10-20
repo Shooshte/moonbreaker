@@ -7,54 +7,30 @@ import { getUnitsList } from '../../lib/db/units';
 import type { GetServerSidePropsContext } from 'next';
 import type { UnitListData } from '../../lib/types/units';
 
-import Select from 'react-select';
+import UnitSelect from '../../components/roster/add-roster/UnitSelect';
 
 import styles from './AddRoster.module.scss';
 
 const AddRoster = ({ captainsList, crewList }) => {
-  const [rosterName, setRosterName] = useState('');
+  const [rosterUnitsIDS, setRosterUnitsIDS] = useState<string[]>([]);
 
-  const handleRosterNameChange = (e) => {
-    setRosterName(e.target.value);
-  };
-
-  const getOptionLabel = (option: UnitListData): string => {
-    return option.name;
-  };
-
-  const getOptionValue = (option: UnitListData): string => {
-    return option.id.toString();
-  };
-
-  const formatGroupLabel = (data: {
-    groupName: string;
-    options: UnitListData[];
-  }) => {
-    return <div>{data.groupName}</div>;
+  const handleConfirm = (selectedUnitID: string) => {
+    const newUnits = [...rosterUnitsIDS, selectedUnitID];
+    setRosterUnitsIDS(newUnits);
   };
 
   return (
-    <form className={styles.container} name="roster" id="roster">
-      <label htmlFor="name">Roster name:</label>
-      <input
-        id="name"
-        name="name"
-        onChange={handleRosterNameChange}
-        required
-        type="text"
-        value={rosterName}
+    <section className={styles.container}>
+      <UnitSelect
+        captainsList={captainsList}
+        crewList={crewList}
+        onConfirm={handleConfirm}
+        rosterUnitsIDS={rosterUnitsIDS}
       />
-
-      <Select
-        getOptionLabel={getOptionLabel}
-        getOptionValue={getOptionValue}
-        options={[
-          { groupName: 'Captains', options: captainsList },
-          { groupName: 'Crew', options: crewList },
-        ]}
-        formatGroupLabel={formatGroupLabel}
-      />
-    </form>
+      {rosterUnitsIDS.map((id) => (
+        <div key={id}>{id}</div>
+      ))}
+    </section>
   );
 };
 
