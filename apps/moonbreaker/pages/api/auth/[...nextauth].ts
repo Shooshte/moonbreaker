@@ -21,6 +21,18 @@ const driver = neo4j.driver(
 );
 
 export const authOptions = {
+  callbacks: {
+    async session({ session, token, user }) {
+      session = {
+        ...session,
+        user: {
+          id: user.id,
+          ...session.user,
+        },
+      };
+      return session;
+    },
+  },
   providers: [
     GoogleProvider({
       authorization: {

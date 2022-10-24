@@ -33,7 +33,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (session) {
     return {
       redirect: {
-        destination: '/roster/add-roster',
+        destination: '/add-roster',
         permanent: false,
       },
     };

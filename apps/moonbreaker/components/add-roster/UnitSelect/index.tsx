@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Select from 'react-select';
 
-import CheckIcon from '../../../public/icons/Check.svg';
+import PlusIcon from '../../../public/icons/Plus.svg';
 import styles from './UnitSelect.module.scss';
 
 import type { FormEvent } from 'react';
@@ -70,33 +70,36 @@ const UnitSelect = ({
   }, [captainsList, crewList]);
 
   return (
-    <form
-      className={styles.container}
-      name="unit-select"
-      onSubmit={handleSubmit}
-    >
-      <Select
-        className={styles.select}
-        formatGroupLabel={GroupLabel}
-        getOptionLabel={getUnitLabel}
-        getOptionValue={getUnitValue}
-        isOptionDisabled={isOptionDisabled}
-        isSearchable={true}
-        onChange={handleUnitChange}
-        options={unitOptions}
-        placeholder="Select a unit."
-        ref={unitSelect}
-        value={selectedUnit}
-      />
-      <button
-        className={styles.submit}
-        disabled={!selectedUnit}
-        ref={submitButton}
-        type="submit"
+    <>
+      <h2 className="heading-2">Add unit to roster</h2>
+      <form
+        className={styles.container}
+        name="unit-select"
+        onSubmit={handleSubmit}
       >
-        <Image alt="confirm selection" priority src={CheckIcon} />
-      </button>
-    </form>
+        <Select
+          className={styles.select}
+          formatGroupLabel={GroupLabel}
+          getOptionLabel={getUnitLabel}
+          getOptionValue={getUnitValue}
+          isOptionDisabled={isOptionDisabled}
+          isSearchable={true}
+          onChange={handleUnitChange}
+          options={unitOptions}
+          placeholder="Select a unit."
+          ref={unitSelect}
+          value={selectedUnit}
+        />
+        <button
+          className={styles.submit}
+          disabled={!selectedUnit}
+          ref={submitButton}
+          type="submit"
+        >
+          <Image alt="confirm selection" priority src={PlusIcon} />
+        </button>
+      </form>
+    </>
   );
 };
 
