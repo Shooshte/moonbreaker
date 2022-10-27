@@ -4,7 +4,11 @@ import { getUnitsByType } from './units';
 import { isRosterComplete } from '../utils/roster';
 
 import type { Driver } from 'neo4j-driver';
-import type { RosterRequestData, RosterData } from '../types/roster';
+import type {
+  RosterRequestData,
+  RosterData,
+  RosterListData,
+} from '../types/roster';
 
 export const validateRoster = async ({
   driver = defaultDriver,
@@ -196,4 +200,53 @@ export const publishRoster = async ({
   };
 
   return returnData;
+};
+
+export const getRostersList = async ({
+  driver = defaultDriver,
+  patchName,
+}: {
+  driver?: Driver;
+  patchName: string;
+}): Promise<RosterListData[]> => {
+  const session = driver?.session();
+  const readQuery = `
+  MATCH(pa:Patch {name : $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]->(p:PublicList)
+    WITH p, r
+    MATCH (p)-[:INCLUDES]->(u:Unit)
+    WITH COLLECT({name: u.name, type: u.type}) as units, r, p
+    RETURN r.name as name, id(p) as id, units
+  `;
+
+  try {
+    const readResult = await session?.readTransaction((tx) =>
+      tx.run(readQuery, { patchName })
+    );
+
+    const parsedData = readResult.records.map((record) => {
+      const id = record.get('id');
+      const name = record.get('name');
+      const units = record.get('units');
+
+      const captain = units.find((unit: any) => unit.type === 'Captain')[
+        'name'
+      ];
+      const crew = units
+        .filter((unit: any) => unit.type === 'Crew')
+        .map((crew) => crew.name);
+
+      return {
+        id,
+        name,
+        units: {
+          captain,
+          crew,
+        },
+      };
+    });
+
+    return parsedData;
+  } finally {
+    session.close();
+  }
 };

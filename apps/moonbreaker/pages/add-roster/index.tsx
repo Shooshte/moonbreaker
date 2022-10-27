@@ -4,9 +4,9 @@ import { unstable_getServerSession } from 'next-auth/next';
 
 import { authOptions } from '../api/auth/[...nextauth]';
 import { getUnitsByType } from '../../lib/db/units';
+import { isRosterComplete } from '../../lib/utils/roster';
 
 import type { GetServerSidePropsContext } from 'next';
-import { isRosterComplete } from '../../lib/utils/roster';
 import type { RosterRequestData } from '../..//lib/types/roster';
 
 import RosterList from '../../components/add-roster/RosterList';

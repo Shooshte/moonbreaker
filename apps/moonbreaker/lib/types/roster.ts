@@ -11,3 +11,12 @@ export interface RosterData {
   name: string;
   units: UnitListData[];
 }
+
+export interface RosterListData {
+  id: number;
+  name: string;
+  units: {
+    captain: string;
+    crew: string[];
+  };
+}
