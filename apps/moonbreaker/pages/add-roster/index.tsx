@@ -3,10 +3,10 @@ import { useMemo, useState } from 'react';
 import { unstable_getServerSession } from 'next-auth/next';
 
 import { authOptions } from '../api/auth/[...nextauth]';
-import { getUnitsList } from '../../lib/db/units';
+import { getUnitsByType } from '../../lib/db/units';
 
 import type { GetServerSidePropsContext } from 'next';
-import type { UnitListData } from '../../lib/types/units';
+import { isRosterComplete } from '../../lib/utils/roster';
 import type { RosterRequestData } from '../..//lib/types/roster';
 
 import RosterList from '../../components/add-roster/RosterList';
@@ -23,35 +23,16 @@ const AddRoster = ({ captainsList, crewList }) => {
   const [rosterUnitsIDS, setRosterUnitsIDS] = useState<string[]>([]);
 
   const canPublish = useMemo(() => {
-    // TODO: add validation for unique roster composition
+    const { isComplete } = isRosterComplete({
+      captainsList,
+      crewList,
+      roster: {
+        name: rosterName,
+        unitIDS: rosterUnitsIDS.map((id) => parseInt(id)),
+      },
+    });
 
-    // In order to save, a roster needs to have:
-    // - 1 Captain
-    // - 9 Crew
-    // - Unique name
-    // - Unique composition
-
-    if (rosterName.trim().length === 0) {
-      return false;
-    }
-
-    const captain = captainsList.find((captain) =>
-      rosterUnitsIDS.includes(captain.id.toString())
-    );
-
-    if (!captain) {
-      return false;
-    }
-
-    const crew = crewList.filter((unit) =>
-      rosterUnitsIDS.includes(unit.id.toString())
-    );
-
-    if (crew.length !== MAX_ROSTER_UNITS - 1) {
-      return false;
-    }
-
-    return true;
+    return isComplete;
   }, [captainsList, crewList, rosterName, rosterUnitsIDS]);
 
   const handleAddUnit = (selectedUnitID: string) => {
@@ -61,11 +42,9 @@ const AddRoster = ({ captainsList, crewList }) => {
     }
   };
 
-  const handlePublish = () => {
-    console.log('handle publish');
-  };
-
-  const handleDraft = async () => {
+  // TODO: handle error state
+  // TODO: handle success state
+  const handlePublish = async () => {
     setIsSaving(true);
 
     try {
@@ -74,7 +53,28 @@ const AddRoster = ({ captainsList, crewList }) => {
         unitIDS: rosterUnitsIDS.map((id) => parseInt(id)),
       };
 
-      const { data } = await axios.post('/api/roster/add', { rosterData });
+      const { data } = await axios.post('/api/roster/publish', { rosterData });
+      const { name, units } = data;
+
+      const newUnitIDS = units.map((unit) => unit.id.toString());
+
+      setRosterName(name);
+      setRosterUnitsIDS(newUnitIDS);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // TODO: handle error state
+  const handleDraft = async () => {
+    setIsSaving(true);
+    try {
+      const rosterData: RosterRequestData = {
+        name: rosterName,
+        unitIDS: rosterUnitsIDS.map((id) => parseInt(id)),
+      };
+
+      const { data } = await axios.post('/api/roster/addDraft', { rosterData });
       const { name, units } = data;
 
       const newUnitIDS = units.map((unit) => unit.id.toString());
@@ -133,27 +133,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const sortByName = (a: UnitListData, b: UnitListData) => {
-    const aLowercase = a.name.toLowerCase();
-    const bLowercase = b.name.toLowerCase();
-
-    if (aLowercase < bLowercase) {
-      return -1;
-    }
-    if (aLowercase > bLowercase) {
-      return 1;
-    }
-    return 0;
-  };
-
-  const unitsList = await getUnitsList({ patchName: 'Pre-Alpha 39919' });
-
-  const captainsList = unitsList
-    .filter((unit) => unit.type === 'Captain')
-    .sort(sortByName);
-  const crewList = unitsList
-    .filter((unit) => unit.type === 'Crew')
-    .sort(sortByName);
+  const { captainsList, crewList } = await getUnitsByType({
+    patchName: 'Pre-Alpha 39919',
+  });
 
   return {
     props: {
