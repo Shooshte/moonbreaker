@@ -1,0 +1,38 @@
+@import '../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: $max-text-width;
+  padding: map-get($spacing-sizes, '1');
+  height: calc(
+    100vh - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+  );
+  width: calc(
+    100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+  );
+}
+
+.rosterContainer {
+  display: grid;
+  grid-template-areas:
+    'score captain'
+    'name name'
+    'crew crew';
+}
+
+.score {
+  grid-area: score;
+}
+
+.captain {
+  grid-area: captain;
+}
+
+.name {
+  grid-area: name;
+}
+
+.crew {
+  grid-area: crew;
+}
