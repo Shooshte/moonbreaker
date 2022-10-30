@@ -4,7 +4,12 @@ import type { RosterRequestData } from '../lib/types/roster';
 
 export const COMPLETE_ROSTER: RosterRequestData = {
   name: 'Astra Rush',
-  unitIDS: [197, 196, 19, 20, 191, 171, 3, 174, 194, 185],
+  unitIDS: [197, 196, 19, 20, 191, 3, 174, 194, 185],
+};
+
+export const ROSTER_WITH_TOO_MANY_UNITS: RosterRequestData = {
+  name: 'Astra Rush',
+  unitIDS: [197, 196, 19, 20, 191, 171, 3, 174, 194, 185, 226, 265],
 };
 
 export const ROSTER_WITHOUT_CAPTAIN: RosterRequestData = {

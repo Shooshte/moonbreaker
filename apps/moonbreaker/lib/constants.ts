@@ -1,1 +1,1 @@
-export const MAX_ROSTER_UNITS = 10; // 9 crew + captain in a roster
+export const MAX_ROSTER_UNITS = 9; // 8 crew + captain in a roster

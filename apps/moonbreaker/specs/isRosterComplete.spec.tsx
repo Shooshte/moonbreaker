@@ -6,6 +6,7 @@ import {
   ROSTER_WITHOUT_CAPTAIN,
   ROSTER_WITHOUT_CREW,
   ROSTER_WITHOUT_NAME,
+  ROSTER_WITH_TOO_MANY_UNITS,
 } from './isRosterComplete.fixtures';
 
 describe('isRosterComplete', () => {
@@ -40,6 +41,18 @@ describe('isRosterComplete', () => {
     ).toEqual({
       isComplete: false,
       error: 'Roster name is required.',
+    });
+  });
+  it('should return false when roster has too many units', () => {
+    expect(
+      isRosterComplete({
+        captainsList,
+        crewList,
+        roster: ROSTER_WITH_TOO_MANY_UNITS,
+      })
+    ).toEqual({
+      isComplete: false,
+      error: 'Roster can only have 9 units.',
     });
   });
 });

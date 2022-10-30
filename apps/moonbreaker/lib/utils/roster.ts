@@ -1,10 +1,12 @@
 import type { RosterRequestData } from '../../lib/types/roster';
 import type { UnitListData } from '../../lib/types/units';
 
+import { MAX_ROSTER_UNITS } from '../constants';
+
 // In order to save, a roster needs these inputs:
 // - Name that is not an empty string
 // - 1 Captain
-// - 9 Crew
+// - 8 Crew
 export const isRosterComplete = ({
   captainsList,
   crewList,
@@ -24,6 +26,13 @@ export const isRosterComplete = ({
     };
   }
 
+  if (roster.unitIDS.length > MAX_ROSTER_UNITS) {
+    return {
+      isComplete: false,
+      error: `Roster can only have ${MAX_ROSTER_UNITS} units.`,
+    };
+  }
+
   const hasCaptain = captainsList.find((captain) =>
     roster.unitIDS.includes(captain.id)
   );
@@ -39,7 +48,7 @@ export const isRosterComplete = ({
     roster.unitIDS.includes(crew.id)
   ).length;
 
-  if (crewNumber !== 9) {
+  if (crewNumber < MAX_ROSTER_UNITS - 1) {
     return {
       isComplete: false,
       error: 'Roster does not have 9 crew members.',
