@@ -14,15 +14,16 @@ const RostersList = ({ rostersList }: Props) => {
 
       {rostersList.map(({ id, name, units }) => {
         return (
-          <ul key={`roster-${id}`}>
-            <h2 className="heading-3">{name}</h2>
-            <li className="text">{units.captain}</li>
-            {units.crew.map((crew) => (
+          <section key={`roster-${id}`}>
+            <p className="heading-3">Roster score</p>
+            <p className="heading-3">{units.captain}</p>
+            <p className="heading-3">{name}</p>
+            {/* {units.crew.map((crew) => (
               <li className="text" key={`crew-${crew}`}>
                 {crew}
               </li>
-            ))}
-          </ul>
+            ))} */}
+          </section>
         );
       })}
     </section>
