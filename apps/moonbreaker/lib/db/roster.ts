@@ -34,8 +34,34 @@ export const validateRoster = async ({
     return { isValid: isComplete, error };
   }
 
-  // TODO: Check that roster composition is unique
-  // const session = driver?.session();
+  // Check that roster composition is unique
+  const compareQuery = `
+  MATCH (n:Unit) WHERE id(n) IN $unitIDS
+    WITH collect(n) AS units
+  MATCH (p:Patch {name: $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]-(d:PublicList)
+  RETURN d, ALL(x IN units WHERE (d)-[:INCLUDES]->(x)) as matchAll`;
+
+  const session = driver?.session();
+
+  try {
+    const uniqueResult = await session?.run(compareQuery, {
+      patchName,
+      unitIDS: rosterData.unitIDS,
+    });
+
+    const isUnique = uniqueResult?.records.reduce((acc, rec) => {
+      return acc && !rec.get('matchAll');
+    }, true);
+
+    if (!isUnique) {
+      return {
+        isValid: false,
+        error: 'Roster composition is not unique',
+      };
+    }
+  } finally {
+    session?.close();
+  }
 
   return { isValid: isComplete, error };
 };
