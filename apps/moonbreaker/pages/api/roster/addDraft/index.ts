@@ -1,3 +1,4 @@
+import { withSentry } from '@sentry/nextjs';
 import { authOptions } from '../../auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth/next';
 
@@ -22,4 +23,4 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json(draftData);
 };
 
-export default handler;
+export default withSentry(handler);
