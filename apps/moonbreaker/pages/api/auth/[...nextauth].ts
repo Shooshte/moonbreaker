@@ -3,6 +3,7 @@ import neo4j from 'neo4j-driver';
 import { withSentry } from '@sentry/nextjs';
 import { Neo4jAdapter } from '@next-auth/neo4j-adapter';
 import GoogleProvider from 'next-auth/providers/google';
+import type { NextAuthOptions } from 'next-auth';
 
 const isTest = process.env['NX_TARGET_ENV'] === 'test';
 
@@ -20,12 +21,14 @@ const driver = neo4j.driver(
   )
 );
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, user }) {
       session = {
         ...session,
         user: {
+          // TODO: updated type definition
+          // @ts-expect-error - need to figure out a way to extend the session type
           id: user.id,
           ...session.user,
         },
