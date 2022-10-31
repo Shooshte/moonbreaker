@@ -16,17 +16,13 @@ const SaveRoster = ({
   return (
     <section className={styles.container}>
       <button
-        className={`heading-4 ${styles.button}`}
+        className={`button`}
         disabled={!canPublish || isSaving}
         onClick={onPublish}
       >
         Publish
       </button>
-      <button
-        className={`heading-4 ${styles.button}`}
-        disabled={isSaving}
-        onClick={onSaveDraft}
-      >
+      <button className={`button`} disabled={isSaving} onClick={onSaveDraft}>
         Save draft
       </button>
     </section>
