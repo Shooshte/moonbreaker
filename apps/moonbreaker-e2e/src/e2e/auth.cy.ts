@@ -1,9 +1,8 @@
-import { addUnits, clearDB } from '../support/database';
+import { clearDB } from '../support/database';
 
 // TODO: move this to docker database setup
 before(async () => {
   await clearDB();
-  // await addUnits({ patchName: 'Pre-Alpha 39919' });
 });
 
 describe('authentication flow', () => {
@@ -29,14 +28,14 @@ describe('authentication flow', () => {
       });
     });
 
-    PRIVATE_ROUTES.forEach((route) => {
-      it(`${route} should not redirect when authenticated`, () => {
-        cy.visit('/');
-        cy.loginByGoogleApi();
-        cy.visit(route);
-        cy.url().should('not.include', route);
-        cy.url().should('include', '/login');
-      });
-    });
+    // PRIVATE_ROUTES.forEach((route) => {
+    //   it(`${route} should not redirect when authenticated`, () => {
+    //     cy.visit('/');
+    //     cy.login();
+    //     cy.visit(route);
+    //     cy.url().should('not.include', '/login');
+    //     cy.url().should('include', route);
+    //   });
+    // });
   });
 });

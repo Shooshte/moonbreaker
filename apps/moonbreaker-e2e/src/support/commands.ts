@@ -1,3 +1,5 @@
+import { encode } from './auth';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -8,11 +10,13 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace Cypress {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Chainable<Subject> {
-    loginByGoogleApi(): void;
+/* eslint-disable @typescript-eslint/no-namespace */
+declare global {
+  namespace Cypress {
+    interface Chainable<Subject> {
+      loginByGoogleApi(): void;
+      login(): void;
+    }
   }
 }
 
@@ -29,25 +33,28 @@ Cypress.Commands.add('loginByGoogleApi', () => {
     },
   }).then(({ body }) => {
     const { access_token, id_token } = body;
-
     cy.request({
       method: 'GET',
       url: 'https://www.googleapis.com/oauth2/v3/userinfo',
       headers: { Authorization: `Bearer ${access_token}` },
-    }).then(({ body }) => {
+    }).then(async ({ body }) => {
       cy.log(body);
-      const userItem = {
-        token: id_token,
-        user: {
-          googleId: body.sub,
-          email: body.email,
-          givenName: body.given_name,
-          familyName: body.family_name,
-          imageUrl: body.picture,
-        },
+
+      const sessionData = {
+        user: { ...body },
+        expires: '3000-01-01T00:00:00.000Z',
+        accessToken: access_token,
       };
 
-      window.localStorage.setItem('googleCypress', JSON.stringify(userItem));
+      cy.intercept('/api/auth/session', sessionData).as('session');
+
+      const encodedData = await encode(
+        sessionData,
+        Cypress.env('nextAuthJWTSecret')
+      );
+      cy.setCookie('next-auth.session-token', encodedData);
+      Cypress.Cookies.preserveOnce('next-auth.session-token');
+
       cy.visit('/');
     });
   });

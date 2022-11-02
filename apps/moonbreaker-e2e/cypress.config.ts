@@ -13,5 +13,6 @@ export default defineConfig({
     neo4jURI: process.env.NX_NE04J_TEST_URI,
     neo4jUser: process.env.NX_NE04J_TEST_USER,
     neo4jPass: process.env.NX_NEO4J_TEST_PASS,
+    nextAuthJWTSecret: process.env.NEXTAUTH_SECRET,
   },
 });
