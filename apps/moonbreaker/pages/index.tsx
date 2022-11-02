@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { getRostersList } from '../lib/db/roster';
 
 import type { GetServerSidePropsContext } from 'next';
@@ -19,7 +21,12 @@ const RostersList = ({ rostersList }: Props) => {
           <section className={styles.rosterContainer} key={`roster-${id}`}>
             <p className={`heading-3 ${styles.score}`}>Roster score</p>
             <p className={`heading-3 ${styles.captain}`}>{units.captain}</p>
-            <p className={`heading-3 ${styles.name}`}>{name}</p>
+            <Link
+              className={`heading-3 ${styles.name}`}
+              href={`/roster/${encodeURIComponent(id)}`}
+            >
+              {name}
+            </Link>
             <ul className={styles.crew}>
               {units.crew.map((crew) => (
                 <li className="text" key={`crew-${crew}`}>

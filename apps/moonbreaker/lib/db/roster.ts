@@ -276,3 +276,13 @@ export const getRostersList = async ({
     session.close();
   }
 };
+
+export const getRosterInfo = async ({
+  driver = defaultDriver,
+  rosterID,
+}: {
+  driver?: Driver;
+  rosterID: string;
+}) => {
+  const session = driver?.session();
+};
