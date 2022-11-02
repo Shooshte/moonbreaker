@@ -1,19 +1,48 @@
 import type { GetServerSidePropsContext } from 'next';
 
-const Roster = () => <div>Roster info placeholder.</div>;
+import { getRosterInfo, getRosterMetaData } from '../../lib/db/roster';
+
+import Metadata from '../../components/roster/Metadata';
+
+import type { UnitListData } from '../../lib/types/units';
+import type { RosterMetaData } from '../../lib/types/roster';
+
+import styles from './roster.module.scss';
+
+interface Props {
+  metaData: RosterMetaData;
+  name: string;
+  units: UnitListData[];
+}
+
+const Roster = ({ metaData, name, units }: Props) => {
+  return (
+    <section className={styles.container}>
+      <h1 className={`${styles.units} heading-4`}>Roster units</h1>
+      <h1 className={`${styles.name} heading-4`}>{name}</h1>
+      <Metadata className={styles.metaData} metaData={metaData} />
+      {/* This is a placeholder element for when descriptions will be added */}
+      <div className={styles.description}></div>
+    </section>
+  );
+};
 
 export default Roster;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // const rostersList = await getRostersList({
-  //   patchName: 'Pre-Alpha 39919',
-  // });
+  const listID = parseInt(context.params.id as string);
 
-  const rostersList = [];
+  const { name, units } = await getRosterInfo({
+    listID,
+  });
+
+  const metaData = await getRosterMetaData({ listID });
 
   return {
     props: {
-      rostersList,
+      metaData,
+      name,
+      units,
     },
   };
 }

@@ -279,10 +279,182 @@ export const getRostersList = async ({
 
 export const getRosterInfo = async ({
   driver = defaultDriver,
-  rosterID,
+  listID,
 }: {
   driver?: Driver;
-  rosterID: string;
+  listID: number;
+}): Promise<RosterData> => {
+  const session = driver?.session();
+  const readQuery = `
+  MATCH(r:Roster)-[:HAS]->(p:PublicList)
+    WHERE id(p) = $listID
+    WITH r, p
+    MATCH (p)-[:INCLUDES]->(u:Unit)
+    WITH COLLECT(u) as units, r
+      UNWIND units as unit
+      OPTIONAL MATCH (unit)-[:HAS_ABILITY]->(aa:ActiveAbility)
+    WITH COLLECT({name: aa.name, text: aa.text, cinderCost: aa.cinderCost}) as activeAbilities, unit, r
+      OPTIONAL MATCH (unit)-[:HAS_ABILITY]->(pa:PassiveAbility)
+    WITH COLLECT(pa.name) as uniqueAbilities, activeAbilities, unit ,r
+    WITH COLLECT(
+      {
+        activeAbilities: activeAbilities,
+        description: unit.description,
+        id: id(unit),
+        name: unit.name,
+        unitInfo: {
+          attackType: unit.attackType,
+          baseDmg: unit.baseDmg,
+          culture: unit.culture,
+          deploymentCost: unit.deploymentCost,
+          health: unit.health,
+          imageURL: unit.imageURL,
+          size: unit.size,
+          type: unit.type
+        },
+        uniqueAbilities: uniqueAbilities
+      }
+      ) as parsedUnits, r
+    RETURN parsedUnits as units, r.name as name, r.id as id
+  `;
+
+  try {
+    const readResult = await session?.readTransaction((tx) =>
+      tx.run(readQuery, { listID })
+    );
+
+    return readResult.records[0]
+      ? {
+          id: readResult.records[0].get('id'),
+          name: readResult.records[0].get('name'),
+          units: readResult.records[0].get('units'),
+        }
+      : null;
+  } finally {
+    session.close();
+  }
+};
+
+export const rateRoster = async ({
+  driver = defaultDriver,
+  userID,
+  listID,
+  rating,
+}: {
+  driver?: Driver;
+  userID: string;
+  listID: number;
+  rating: number;
 }) => {
   const session = driver?.session();
+
+  const deleteQuery = `
+    MATCH(p:PublicList)
+    WHERE id(p) = $listID
+    WITH p
+    MATCH(u:User)
+    WHERE u.id = $userID
+    WITH p, u
+    OPTIONAL MATCH (u)-[uv:UPVOTED]->(p)
+    DELETE uv
+    WITH p, u
+    OPTIONAL MATCH (u)-[dv:DOWNVOTED]->(p)
+    DELETE dv
+  `;
+
+  try {
+    // First, clear all previous upvote/downvote relationships
+    await session?.writeTransaction((tx) =>
+      tx.run(deleteQuery, { listID, userID })
+    );
+
+    const upvote = async () => {
+      const upvoteQuery = `
+        MATCH(p:PublicList)
+        WHERE id(p) = $listID
+        WITH p
+        MATCH(u:User)
+        WHERE u.id = $userID
+        WITH p, u
+        MERGE (u)-[:UPVOTED]->(p)
+        RETURN p
+      `;
+
+      await session?.writeTransaction((tx) =>
+        tx.run(upvoteQuery, { listID, userID })
+      );
+    };
+
+    const downVote = async () => {
+      const downvoteQuery = `
+        MATCH(p:PublicList)
+        WHERE id(p) = $listID
+        WITH p
+        MATCH(u:User)
+        WHERE u.id = $userID
+        WITH p, u
+        MERGE (u)-[:DOWNVOTED]->(p)
+        RETURN p
+      `;
+
+      await session?.writeTransaction((tx) =>
+        tx.run(downvoteQuery, { listID, userID })
+      );
+    };
+
+    switch (rating) {
+      // Upvote
+      case 1:
+        await upvote();
+        break;
+      // Downvote
+      case -1:
+        await downVote();
+        break;
+      // 0 or no value means vote needs to reset
+      default:
+        break;
+    }
+  } finally {
+    session.close();
+  }
+};
+
+export const getRosterMetaData = async ({
+  driver = defaultDriver,
+  listID,
+}: {
+  driver?: Driver;
+  listID: number;
+}) => {
+  const readQuery = `
+  MATCH(p:PublicList)
+    WHERE id(p) = $listID
+  WITH p
+  OPTIONAL MATCH (:User)-[dv:DOWNVOTED]->(p)
+  WITH p, COUNT(dv) AS downVotes
+  OPTIONAL MATCH (:User)-[uv:UPVOTED]->(p)
+  WITH p, downVotes, COUNT(uv) AS upVotes
+  RETURN downVotes, upVotes
+  `;
+
+  const session = driver?.session();
+
+  try {
+    const readResult = await session?.readTransaction((tx) =>
+      tx.run(readQuery, { listID })
+    );
+
+    const downVotes = readResult.records[0].get('downVotes') || 0;
+    const upVotes = readResult.records[0].get('upVotes') || 0;
+    const score = upVotes - downVotes;
+
+    return {
+      downVotes,
+      upVotes,
+      score,
+    };
+  } finally {
+    session.close();
+  }
 };

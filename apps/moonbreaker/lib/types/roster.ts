@@ -20,3 +20,9 @@ export interface RosterListData {
     crew: string[];
   };
 }
+
+export interface RosterMetaData {
+  downVotes: number;
+  upVotes: number;
+  score: number;
+}
