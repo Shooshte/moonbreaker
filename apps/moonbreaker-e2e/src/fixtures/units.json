@@ -1,0 +1,875 @@
+[
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Aegys Defense Dome",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Methedori",
+      "deploymentCost": 6,
+      "health": 10,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/a/a5/Aegys-Defense-Drone-Model.png/revision/latest/scale-to-width-down/350?cb=20220924184039",
+      "size": "Large",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Energy Field",
+      "Damage to allies in range is reduced by 1."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "3",
+        "name": "Flechette",
+        "text": "Deal 3 damage to ALL units in area."
+      }
+    ],
+    "description": null,
+    "name": "Aegys Sentinel",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Methedori",
+      "deploymentCost": 5,
+      "health": 12,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/e/ef/Aegys_Sentinel_Model.png/revision/latest/scale-to-width-down/350?cb=20220924184034",
+      "size": "Large",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Armor", "Immobile"]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Amplifier Bitol",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 1,
+      "culture": "Cholek",
+      "deploymentCost": 4,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/d/d6/AmpBit-Model-transp.png/revision/latest/scale-to-width-down/328?cb=20220924184703",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Scouting Intel", "Allies in range have +1 Attack."]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Inner Energy",
+        "text": "Gain +3 Attack and Firststrike this turn."
+      }
+    ],
+    "description": null,
+    "name": "Antios, Gauntlet",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 1,
+      "culture": "Methedori",
+      "deploymentCost": 1,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/8/8f/Antios-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184703",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Stillness",
+        "text": "Gains +75% Accuracy until she moves or takes damage."
+      }
+    ],
+    "description": null,
+    "name": "Aria",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": 3,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/79/Aria-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184703",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Booste Morale",
+        "text": "Permanently reduce the Cost of a random Crew on Bridge by 2."
+      },
+      {
+        "cinderCost": "2",
+        "name": "\"Into the Breach!\"",
+        "text": "Remove Stunned from unit."
+      }
+    ],
+    "description": null,
+    "name": "Astra",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 1,
+      "culture": "Methedori",
+      "deploymentCost": null,
+      "health": 20,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/5/5c/Astra_paint.png/revision/latest/scale-to-width-down/350?cb=20220823203727",
+      "size": "Large",
+      "type": "Captain"
+    },
+    "uniqueAbilities": [
+      "Captain",
+      "Airborne",
+      "Inspire",
+      "Reinforce when Astra destroys a Crew."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Fire Flamer",
+        "text": "Deal 2 damage to ALL units in area and Burn them."
+      }
+    ],
+    "description": null,
+    "name": "Axl Pyro",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Smugglers",
+      "deploymentCost": 3,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/d/d9/Axl-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184703",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Beatris, Enforcer",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": 2,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/6/68/Beatris-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184705",
+      "size": "Large",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Slow",
+      "Armor",
+      "When it attacks, it damages ALL units in a line behind target."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Blindsider Eztli",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Cholek",
+      "deploymentCost": 2,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/3/3e/Blindsider-Model-transp.png/revision/latest/scale-to-width-down/287?cb=20220924184704",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Cornered",
+      "Gain +2 Attack and Fast when you have no Cinder."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Broken Vengeance",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 3,
+      "culture": "Smugglers",
+      "deploymentCost": 4,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/6/66/Broken-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184705",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Revenge",
+      "Immediately attack any Crew that damages Broken Vengeance."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Toss It",
+        "text": "Throw unit and deal 1 damage to it."
+      }
+    ],
+    "description": null,
+    "name": "Chuck & Co.",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Smugglers",
+      "deploymentCost": 4,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/7d/Chuck-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184705",
+      "size": "Large",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Armor"]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Grappling Chain",
+        "text": "Move unit towards Crankbait."
+      }
+    ],
+    "description": null,
+    "name": "Crankbait",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 1,
+      "culture": "Smugglers",
+      "deploymentCost": 3,
+      "health": 9,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/b/ba/Crankbait-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184705",
+      "size": "Large",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Fast"]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Crosshair",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 3,
+      "culture": "Smugglers",
+      "deploymentCost": 4,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/c/c2/Crosshair-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184704",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Perfect Aim",
+      "Attacks will always Crit if she was in play and her target didn't move last turn."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Release Ozos",
+        "text": "Give Ranged ally +40% Accuracy for 2 turns."
+      }
+    ],
+    "description": null,
+    "name": "Deadeye",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Smugglers",
+      "deploymentCost": 2,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/5/54/Deadeye-Model-transp.png/revision/latest/scale-to-width-down/339?cb=20220924184706",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Lob Explosive",
+        "text": "Deal 2 damage to ALL units in area."
+      }
+    ],
+    "description": null,
+    "name": "Detonia",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Methedori",
+      "deploymentCost": 2,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/1/12/Detonia-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184706",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Battle Frenzy",
+        "text": "Give Melee unit Pummel for a turn."
+      }
+    ],
+    "description": null,
+    "name": "Drumdancer Tlalli",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Cholek",
+      "deploymentCost": 1,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/e/e2/Drumdancer-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184706",
+      "size": "Small",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Shield of Hope",
+        "text": "Reduce next damage to unit by 1."
+      },
+      {
+        "cinderCost": "2",
+        "name": "Sword of Justice",
+        "text": "Deal 3 damage to ALL units in range."
+      }
+    ],
+    "description": null,
+    "name": "Extilior",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": null,
+      "health": 20,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/3/3a/Extilior_paint.png/revision/latest/scale-to-width-down/350?cb=20220823203732",
+      "size": "Large",
+      "type": "Captain"
+    },
+    "uniqueAbilities": [
+      "Captain",
+      "Rally",
+      "A random ally within range gains Shield of Hope when a rival is destroyed."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Season of the Hunt",
+        "text": "Ally's next attack always hits OR rival's next attack always misses."
+      }
+    ],
+    "description": null,
+    "name": "Fatetwister Tantun",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 2,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/d/d8/Fatetwister-Model-transp.png/revision/latest/scale-to-width-down/264?cb=20220924184706",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "4",
+        "name": "Bombard",
+        "text": "Deal 3 damage to ALL units in area."
+      }
+    ],
+    "description": null,
+    "name": "Florio, Lancer",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Methedori",
+      "deploymentCost": 5,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/e/ec/Florio-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184706",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Slow"]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Furia",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": 5,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/1/16/Furia-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184708",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Power Up",
+      "If Furia didn't attack in a turn, take 1 damage and gain +3 Attack for the next attack only."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Jailbreak",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Smugglers",
+      "deploymentCost": 4,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/7a/Jailbreak-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184708",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Airborne",
+      "Lock-Up",
+      "Touching rivals are Immobilized."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Maximus",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 1,
+      "culture": "Methedori",
+      "deploymentCost": 1,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/b/be/Max-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184708",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Rapidfire",
+      "Fleet Footed",
+      "Whenever Maximus damages target, refresh its move."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Trap Prey",
+        "text": "Move unit towards Micoani Thicket."
+      }
+    ],
+    "description": null,
+    "name": "Micoani Thicket",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Cholek",
+      "deploymentCost": 6,
+      "health": 10,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/2/23/Micoani-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Poison", "Slow"]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Evacuate",
+        "text": "Return ally to Bridge and fully restore it."
+      }
+    ],
+    "description": null,
+    "name": "Necahual",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 4,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/f/f6/Necahual-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184708",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Fast"]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Novian Bulwark",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 4,
+      "culture": "Methedori",
+      "deploymentCost": 6,
+      "health": 10,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/0/02/Novian-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Armor",
+      "Entrench",
+      "When Novian Bulwark attacks, it permanently gains +25% Accuracy and Immobile."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Sporepuff",
+        "text": "Stun rival Crew for a turn."
+      }
+    ],
+    "description": null,
+    "name": "Peacemaker Balam",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 4,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/b/bf/Peacemaker-Model-transp.png/revision/latest/scale-to-width-down/272?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Quetzalli",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 5,
+      "health": 10,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/b/ba/Quetzali-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Whenever an ally in range has depleted movement, refresh it (5 remaining this turn)."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Rickety Backfire",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 3,
+      "culture": "Smugglers",
+      "deploymentCost": 2,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/7e/Rickety-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Airborne",
+      "Deferred Maintenance",
+      "When it attacks, has a 70% chance to also damage itself and ALL units in range."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Shield Barrier",
+        "text": "Reduce next damage to unit to zero."
+      }
+    ],
+    "description": null,
+    "name": "Savria, Safeguard",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": 4,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/9/9a/Savria-Model-transp.png/revision/latest/scale-to-width-down/293?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Shrapnel",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Smugglers",
+      "deploymentCost": 4,
+      "health": 9,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/9/9e/Shrapnel-Model-transp.png/revision/latest/scale-to-width-down/342?cb=20220924184709",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Shotgun",
+      "Can only attack units in range.",
+      "Target ALL nearby units when attacking."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Snareling",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 1,
+      "culture": "Smugglers",
+      "deploymentCost": 3,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/d/d0/Snareling-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184710",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Sticky Mucus",
+      "When Snareling hits, Immobilize target for a turn."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Nutrient Syringe",
+        "text": "Restore 3 Health to unit."
+      }
+    ],
+    "description": null,
+    "name": "Stichy McPatchy",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 1,
+      "culture": "Smugglers",
+      "deploymentCost": 2,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/a/a7/Stitchy-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184710",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Switch it up",
+        "text": "Gain Rapidfire and Slow for 2 turns."
+      }
+    ],
+    "description": null,
+    "name": "Switchback",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 3,
+      "culture": "Smugglers",
+      "deploymentCost": 5,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/a/a4/Switchback-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Fast"]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Seize Initiative",
+        "text": "Give Ranged unit Rapidfire for a turn."
+      }
+    ],
+    "description": null,
+    "name": "Taria, Arsenal",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Methedori",
+      "deploymentCost": 2,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/1/13/Taria-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": []
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Tipu",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 3,
+      "culture": "Cholek",
+      "deploymentCost": 4,
+      "health": 7,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/76/Tipu-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Digest",
+      "Whenever Tipu hits, permanently gain +1 Attack and +1 Health."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Tona Mystic Metzli",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 5,
+      "health": 6,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/f/f2/Tona-Model-transp.png/revision/latest/scale-to-width-down/331?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Praise Cinder",
+      "At turn end, restore 1 health to your Captain for each unspent Cinder."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Torian, Guardian",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 3,
+      "culture": "Methedori",
+      "deploymentCost": 4,
+      "health": 9,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/9/9b/Torian-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184710",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Intercept",
+      "Torian, Guardian and the nearest ally in range are 50% harder to hit."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Toxoid",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 1,
+      "culture": "Smugglers",
+      "deploymentCost": 3,
+      "health": 5,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/3/39/Toxoid-Model-transp.png/revision/latest/scale-to-width-down/332?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Airborne",
+      "Poison",
+      "Restores 1 health at the end of its turn."
+    ]
+  },
+  {
+    "activeAbilities": [],
+    "description": null,
+    "name": "Ursix Nectarvine",
+    "unitInfo": {
+      "attackType": null,
+      "baseDmg": null,
+      "culture": "Cholek",
+      "deploymentCost": 4,
+      "health": 8,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/8/86/UrsixNec-Model-transp.png/revision/latest/scale-to-width-down/350?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": [
+      "Immobile",
+      "Healing Bloom",
+      "Restore 2 Health to allies in range every turn."
+    ]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "2",
+        "name": "Growth",
+        "text": "Create Ursix Scattervine."
+      }
+    ],
+    "description": null,
+    "name": "Ursix Scattervine",
+    "unitInfo": {
+      "attackType": "Melee",
+      "baseDmg": 2,
+      "culture": "Cholek",
+      "deploymentCost": 2,
+      "health": 2,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/a/ae/UrsixScat-Model-transp.png/revision/latest/scale-to-width-down/342?cb=20220924184711",
+      "size": "",
+      "type": "Crew"
+    },
+    "uniqueAbilities": ["Slow", "Charge"]
+  },
+  {
+    "activeAbilities": [
+      {
+        "cinderCost": "1",
+        "name": "Sleeper Mine",
+        "text": "Create Sleeper Mine. It takes 1 turn to arm."
+      },
+      {
+        "cinderCost": "2",
+        "name": "Gravity Well",
+        "text": "Move units in area together."
+      }
+    ],
+    "description": null,
+    "name": "Zax Ja'kar",
+    "unitInfo": {
+      "attackType": "Ranged",
+      "baseDmg": 2,
+      "culture": "Smugglers",
+      "deploymentCost": null,
+      "health": 20,
+      "imageURL": "https://static.wikia.nocookie.net/moonbreaker/images/7/7e/Zax_paint.png/revision/latest/scale-to-width-down/350?cb=20220823203735",
+      "size": "",
+      "type": "Captain"
+    },
+    "uniqueAbilities": ["Captain", "Back off!", "Push target on hit."]
+  }
+]

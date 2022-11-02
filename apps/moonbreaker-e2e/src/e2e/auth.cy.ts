@@ -1,3 +1,11 @@
+import { addUnits, clearDB } from '../support/database';
+
+// TODO: move this to docker database setup
+before(async () => {
+  await clearDB();
+  // await addUnits({ patchName: 'Pre-Alpha 39919' });
+});
+
 describe('authentication flow', () => {
   describe('public routes', () => {
     const PUBLIC_ROUTES = ['/', '/login'];
