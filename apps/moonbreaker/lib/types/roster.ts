@@ -12,17 +12,18 @@ export interface RosterData {
   units: UnitListData[];
 }
 
+export interface RosterMetaData {
+  downVotes: number;
+  upVotes: number;
+  score: number;
+}
+
 export interface RosterListData {
   id: number;
+  metaData: RosterMetaData;
   name: string;
   units: {
     captain: string;
     crew: string[];
   };
-}
-
-export interface RosterMetaData {
-  downVotes: number;
-  upVotes: number;
-  score: number;
 }

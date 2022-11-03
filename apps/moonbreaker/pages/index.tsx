@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Metadata from '../components/roster/Metadata';
 
 import { getRostersList } from '../lib/db/roster';
 
@@ -13,16 +14,19 @@ interface Props {
 
 const RostersList = ({ rostersList }: Props) => {
   return (
-    <section className={styles.container}>
-      <h1 className="heading-2">Saved rosters:</h1>
-
-      {rostersList.map(({ id, name, units }) => {
+    <ul className={styles.container}>
+      <h1 className="heading-1">Saved rosters</h1>
+      {rostersList.map(({ id, metaData, name, units }) => {
         return (
-          <section className={styles.rosterContainer} key={`roster-${id}`}>
-            <p className={`heading-3 ${styles.score}`}>Roster score</p>
-            <p className={`heading-3 ${styles.captain}`}>{units.captain}</p>
+          <li className={styles.rosterContainer} key={`roster-${id}`}>
+            <Metadata
+              className={styles.score}
+              listID={id}
+              metaData={metaData}
+            />
+            <p className={`heading-2 ${styles.captain}`}>{units.captain}</p>
             <Link
-              className={`heading-3 ${styles.name}`}
+              className={`heading-2 ${styles.name}`}
               href={`/roster/${encodeURIComponent(id)}`}
             >
               {name}
@@ -34,10 +38,10 @@ const RostersList = ({ rostersList }: Props) => {
                 </li>
               ))}
             </ul>
-          </section>
+          </li>
         );
       })}
-    </section>
+    </ul>
   );
 };
 

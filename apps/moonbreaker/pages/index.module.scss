@@ -15,10 +15,12 @@
 
 .rosterContainer {
   display: grid;
+  gap: map-get($spacing-sizes, '2');
   grid-template-areas:
     'score captain'
     'name name'
     'crew crew';
+  margin-bottom: map-get($spacing-sizes, '2');
 }
 
 .score {

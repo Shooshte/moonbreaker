@@ -241,7 +241,12 @@ export const getRostersList = async ({
     WITH p, r
     MATCH (p)-[:INCLUDES]->(u:Unit)
     WITH COLLECT({name: u.name, type: u.type}) as units, r, p
-    RETURN r.name as name, id(p) as id, units
+    OPTIONAL MATCH (:User)-[dv:DOWNVOTED]->(p)
+    WITH p, COUNT(dv) AS downVotes, units, r
+    OPTIONAL MATCH (:User)-[uv:UPVOTED]->(p)
+    WITH p, downVotes, COUNT(uv) AS upVotes, units, r
+    WITH p, downVotes, upVotes, units, r, upVotes - downVotes AS score
+    RETURN r.name as name, id(p) as id, units, downVotes, upVotes, score ORDER BY score DESC
   `;
 
   try {
@@ -253,6 +258,9 @@ export const getRostersList = async ({
       const id = record.get('id');
       const name = record.get('name');
       const units = record.get('units');
+      const downVotes = record.get('downVotes');
+      const upVotes = record.get('upVotes');
+      const score = record.get('score');
 
       const captain = units.find((unit: any) => unit.type === 'Captain')[
         'name'
@@ -263,6 +271,11 @@ export const getRostersList = async ({
 
       return {
         id,
+        metaData: {
+          downVotes,
+          upVotes,
+          score,
+        },
         name,
         units: {
           captain,
@@ -454,6 +467,43 @@ export const getRosterMetaData = async ({
       upVotes,
       score,
     };
+  } finally {
+    session.close();
+  }
+};
+
+export const getRosterUserRating = async ({
+  driver = defaultDriver,
+  listID,
+  userID,
+}: {
+  driver?: Driver;
+  listID: number;
+  userID: string;
+}): Promise<number> => {
+  const readQuery = `
+    MATCH(u:User)
+      WHERE u.id = $userID
+    WITH u
+    MATCH(p:PublicList)
+      WHERE id(p) = $listID
+    WITH p
+    OPTIONAL MATCH (u)-[dv:DOWNVOTED]->(p)
+    WITH p, COUNT(dv) AS downVotes
+    OPTIONAL MATCH (u)-[uv:UPVOTED]->(p)
+    WITH p, downVotes, COUNT(uv) AS upVotes
+    RETURN upVotes - downVotes AS rating
+    `;
+
+  const session = driver?.session();
+
+  try {
+    const readResult = await session?.readTransaction((tx) =>
+      tx.run(readQuery, { listID, userID })
+    );
+    const rating = readResult?.records[0]?.get('rating') || 0;
+
+    return rating;
   } finally {
     session.close();
   }
