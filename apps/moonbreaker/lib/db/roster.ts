@@ -231,56 +231,52 @@ export const publishRoster = async ({
 export const getRostersList = async ({
   driver = defaultDriver,
   patchName,
+  userID,
 }: {
   driver?: Driver;
   patchName: string;
+  userID?: string;
 }): Promise<RosterListData[]> => {
   const session = driver?.session();
   const readQuery = `
-  MATCH(pa:Patch {name : $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]->(p:PublicList)
-    WITH p, r
-    MATCH (p)-[:INCLUDES]->(u:Unit)
-    WITH COLLECT({name: u.name, type: u.type}) as units, r, p
+    MATCH(pa:Patch {name : $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]->(p:PublicList)
+      WITH p, r
+      MATCH (p)-[:INCLUDES]->(u:Unit)
+      WHERE u.type = 'Captain'
+    WITH {name: u.name, id: id(u), imageURL: u.imageURL} as captain, p, r
     OPTIONAL MATCH (:User)-[dv:DOWNVOTED]->(p)
-    WITH p, COUNT(dv) AS downVotes, units, r
+      WITH p, COUNT(dv) AS downVotes, captain, r
     OPTIONAL MATCH (:User)-[uv:UPVOTED]->(p)
-    WITH p, downVotes, COUNT(uv) AS upVotes, units, r
-    WITH p, downVotes, upVotes, units, r, upVotes - downVotes AS score
-    RETURN r.name as name, id(p) as id, units, downVotes, upVotes, score ORDER BY score DESC
+      WITH p, downVotes, COUNT(uv) AS upVotes, captain, r
+      WITH captain, r, upVotes - downVotes AS score, p
+    OPTIONAL MATCH (u:User)-[udv:DOWNVOTED]->(p)
+      WHERE u.id = $userID
+      WITH COUNT(udv) AS userDownVotes, p, r, score, captain
+    OPTIONAL MATCH (u2:User)-[uuv:UPVOTED]->(p)
+      WHERE u2.id = $userID
+      WITH COUNT(uuv) AS userUpVotes, userDownVotes, p, r, score, captain
+      WITH userUpVotes - userDownVotes as userRating, p, r, captain, score
+    RETURN captain, r.name as name, id(p) as id, score, userRating ORDER BY score DESC
   `;
 
   try {
     const readResult = await session?.readTransaction((tx) =>
-      tx.run(readQuery, { patchName })
+      tx.run(readQuery, { patchName, userID: userID || '' })
     );
 
     const parsedData = readResult.records.map((record) => {
       const id = record.get('id');
       const name = record.get('name');
-      const units = record.get('units');
-      const downVotes = record.get('downVotes');
-      const upVotes = record.get('upVotes');
+      const captain = record.get('captain');
       const score = record.get('score');
-
-      const captain = units.find((unit: any) => unit.type === 'Captain')[
-        'name'
-      ];
-      const crew = units
-        .filter((unit: any) => unit.type === 'Crew')
-        .map((crew) => crew.name);
+      const userRating = record.get('userRating');
 
       return {
+        captain,
         id,
-        metaData: {
-          downVotes,
-          upVotes,
-          score,
-        },
         name,
-        units: {
-          captain,
-          crew,
-        },
+        score,
+        userRating,
       };
     });
 

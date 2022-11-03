@@ -4,22 +4,23 @@
   display: flex;
   flex-direction: column;
   max-width: $max-text-width;
-  padding: map-get($spacing-sizes, '1');
+  padding: map-get($spacing-sizes, '2');
   height: calc(
-    100vh - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    100vh - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
   );
   width: calc(
-    100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    100% - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
   );
 }
 
 .rosterContainer {
+  align-items: flex-start;
   display: grid;
   gap: map-get($spacing-sizes, '2');
   grid-template-areas:
     'score captain'
-    'name name'
-    'crew crew';
+    'name name';
+  justify-content: center;
   margin-bottom: map-get($spacing-sizes, '2');
 }
 
@@ -32,9 +33,10 @@
 }
 
 .name {
+  color: #000;
   grid-area: name;
-}
-
-.crew {
-  grid-area: crew;
+  margin-bottom: 0;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
 }

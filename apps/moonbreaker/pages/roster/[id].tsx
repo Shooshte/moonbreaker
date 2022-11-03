@@ -27,7 +27,7 @@ const Roster = ({ metaData, name, units }: Props) => {
       <Metadata
         className={styles.metaData}
         listID={listID}
-        metaData={metaData}
+        score={metaData.score}
       />
       {/* This is a placeholder element for when descriptions will be added */}
       <div className={styles.description}></div>

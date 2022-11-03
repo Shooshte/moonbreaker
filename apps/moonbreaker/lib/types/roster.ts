@@ -18,12 +18,16 @@ export interface RosterMetaData {
   score: number;
 }
 
+export interface CaptainListData {
+  id: string;
+  name: string;
+  imageURL?: string;
+}
+
 export interface RosterListData {
   id: number;
-  metaData: RosterMetaData;
+  captain: CaptainListData;
   name: string;
-  units: {
-    captain: string;
-    crew: string[];
-  };
+  score: number;
+  userRating: number;
 }

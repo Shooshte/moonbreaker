@@ -11,7 +11,7 @@
 .button:hover {
   svg,
   path {
-    fill: #34495e;
+    fill: #3498db;
   }
 }
 
@@ -26,11 +26,11 @@
   align-items: flex-start;
   display: grid;
   grid-template-areas:
-    'label label'
-    'score upVote'
-    'score downVote';
+    'upVote'
+    'score'
+    'downVote';
   gap: map-get($spacing-sizes, '6');
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .label {

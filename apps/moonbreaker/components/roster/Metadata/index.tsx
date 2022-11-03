@@ -6,16 +6,14 @@ import Caret from '../../common/icons/Caret';
 
 import styles from './Metadata.module.scss';
 
-import type { RosterMetaData } from '../../../lib/types/roster';
-
 interface Props {
   className: string;
   listID: number;
-  metaData: RosterMetaData;
+  score: number;
 }
 
-const Metadata = ({ className, listID, metaData }: Props) => {
-  const [localMetaData, setLocalMetaData] = useState(metaData);
+const Metadata = ({ className, listID, score }: Props) => {
+  const [localScore, setLocalScore] = useState<number>(score);
   const [loadingRating, setLoadingRating] = useState(true);
   const [userRating, setUserRating] = useState(0);
 
@@ -57,14 +55,14 @@ const Metadata = ({ className, listID, metaData }: Props) => {
           rating: 0,
           listID,
         });
-        setLocalMetaData(data);
+        setLocalScore(data.score);
       } else {
         setUserRating(rating);
         const { data } = await axios.post('/api/roster/rate', {
           rating,
           listID,
         });
-        setLocalMetaData(data);
+        setLocalScore(data.score);
       }
     } finally {
       setLoadingRating(false);
@@ -73,9 +71,8 @@ const Metadata = ({ className, listID, metaData }: Props) => {
 
   return (
     <section className={`${className} ${styles.container}`}>
-      <h1 className={`heading-5 ${styles.label}`}>User Score:</h1>
-      <p className={`heading-1 ${styles.score}`}>
-        {loadingRating ? '?' : localMetaData.score}
+      <p className={`heading-2 ${styles.score}`}>
+        {loadingRating ? '?' : localScore}
       </p>
       {isAuthenticated ? (
         <>
@@ -86,7 +83,7 @@ const Metadata = ({ className, listID, metaData }: Props) => {
           >
             <Caret
               direction="up"
-              fill={userRating === 1 ? '#f39c12' : '#bdc3c7'}
+              fill={userRating === 1 ? '#3498DB' : '#bdc3c7'}
             />
           </button>
           <button
@@ -96,7 +93,7 @@ const Metadata = ({ className, listID, metaData }: Props) => {
           >
             <Caret
               direction="down"
-              fill={userRating === -1 ? '#f39c12' : '#bdc3c7'}
+              fill={userRating === -1 ? '#3498DB' : '#bdc3c7'}
             />
           </button>
         </>
