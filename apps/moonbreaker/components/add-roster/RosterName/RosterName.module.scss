@@ -1,0 +1,11 @@
+@import '../../../styles/variables';
+
+.heading {
+  margin-top: map-get($spacing-sizes, '2');
+}
+
+.input {
+  height: 38px;
+  margin-bottom: map-get($spacing-sizes, '2');
+  width: 100%;
+}

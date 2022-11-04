@@ -1,6 +1,6 @@
 $font-family: 'Poppins', sans-serif;
 
-// Base font size defines the font-size of the html elrement. Chaging this should scale the rest of the elrements for the whole app.
+// Base font size defines the font-size of the html elements. Changing this should scale the rest of the elements for the whole app.
 $base-font-size: 16px;
 $label-size: 0.8rem;
 $max-text-width: 40rem;
@@ -33,7 +33,7 @@ $line-height-sizes: (
   '6': 1.75,
 );
 
-// These should also be used for spacing between different elrements on the page. They are inside font variables since they are relative to the base font-size
+// These should also be used for spacing between different elements on the page. They are inside font variables since they are relative to the base font-size
 $spacing-sizes: (
   '1': 2.75rem,
   '2': 1.6875rem,

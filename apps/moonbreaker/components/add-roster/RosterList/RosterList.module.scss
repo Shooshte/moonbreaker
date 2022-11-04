@@ -1,0 +1,9 @@
+@import '../../../styles/variables';
+
+.container {
+  margin-top: map-get($spacing-sizes, '2');
+}
+
+.crewHeading {
+  margin-top: map-get($spacing-sizes, '3');
+}

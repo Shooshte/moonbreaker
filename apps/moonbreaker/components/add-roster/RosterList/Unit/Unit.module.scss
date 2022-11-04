@@ -1,0 +1,25 @@
+@import '../../../../styles/variables';
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 38px;
+  justify-content: space-between;
+}
+
+.remove {
+  align-items: center;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+}
+
+.remove:hover {
+  background-color: #c0392b;
+}

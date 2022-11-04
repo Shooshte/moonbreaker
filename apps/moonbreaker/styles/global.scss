@@ -7,6 +7,46 @@ html {
   width: 100%;
 }
 
+.main-container {
+  background-color: #ecf0f1;
+}
+
+.button {
+  align-items: center;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  font-size: map-get($font-sizes, '4');
+  line-height: map-get($line-height-sizes, '4');
+  justify-content: center;
+  height: 38px;
+  padding: 0 map-get($spacing-sizes, '3');
+  position: relative;
+}
+
+.button:disabled:hover {
+  background-color: #2ecc71;
+}
+
+.button:hover {
+  background-color: #27ae60;
+}
+
+.button:disabled:after {
+  content: ' ';
+  background-color: #ecf0f1;
+  border: none;
+  border-radius: 5px;
+  height: 38px;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .text {
   font-size: map-get($font-sizes, '5');
   line-height: map-get($line-height-sizes, '5');

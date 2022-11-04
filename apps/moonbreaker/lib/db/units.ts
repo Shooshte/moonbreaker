@@ -26,6 +26,9 @@ export const getUnits = async ({
   const readResult = await session?.readTransaction((tx) =>
     tx.run(readQuery, { patchName })
   );
+
+  session.close();
+
   const finalResult = readResult?.records.map((record) => {
     const unit = record.get('unit');
     const activeAbilities = record.get('activeAbilities');
@@ -60,6 +63,8 @@ export const getUnitsList = async ({
   const readResult = await session?.readTransaction((tx) =>
     tx.run(readQuery, { patchName })
   );
+
+  session.close();
   const finalResult = readResult?.records.map((record) => {
     const unit = record.get('unit');
 
@@ -77,4 +82,34 @@ export const getUnitsList = async ({
     return returnData;
   });
   return finalResult;
+};
+
+export const getUnitsByType = async ({
+  patchName,
+}: {
+  patchName: string;
+}): Promise<{ captainsList: UnitListData[]; crewList: UnitListData[] }> => {
+  const sortByName = (a: UnitListData, b: UnitListData) => {
+    const aLowercase = a.name.toLowerCase();
+    const bLowercase = b.name.toLowerCase();
+
+    if (aLowercase < bLowercase) {
+      return -1;
+    }
+    if (aLowercase > bLowercase) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const unitsList = await getUnitsList({ patchName });
+
+  const captainsList = unitsList
+    .filter((unit) => unit.type === 'Captain')
+    .sort(sortByName);
+  const crewList = unitsList
+    .filter((unit) => unit.type === 'Crew')
+    .sort(sortByName);
+
+  return { captainsList, crewList };
 };

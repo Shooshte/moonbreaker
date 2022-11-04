@@ -1,0 +1,80 @@
+@import '../styles/variables';
+
+.container {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: $max-text-width;
+  padding: map-get($spacing-sizes, '2');
+  height: calc(
+    100vh - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
+  );
+  width: calc(
+    100% - map-get($spacing-sizes, '2') - map-get($spacing-sizes, '2')
+  );
+}
+
+.rosterContainer {
+  align-items: center;
+  display: grid;
+  gap: map-get($spacing-sizes, '2');
+  grid-template-areas:
+    'score captain crew crew'
+    'name name name name';
+  justify-content: center;
+  margin-bottom: map-get($spacing-sizes, '2');
+}
+
+.crew {
+  grid-area: crew;
+}
+
+.score {
+  grid-area: score;
+  margin-right: map-get($spacing-sizes, '2');
+}
+
+@media only screen and (min-width: $mobile-large) {
+  .score {
+    margin-right: 0;
+  }
+}
+
+.captain {
+  grid-area: captain;
+}
+
+.name {
+  color: #000;
+  grid-area: name;
+  margin-bottom: 0;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+@media only screen and (min-width: $tablet) {
+  .container {
+    align-items: center;
+    height: calc(
+      100vh - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    );
+    margin: 0 auto;
+    padding: map-get($spacing-sizes, '1');
+    width: calc(
+      100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
+    );
+  }
+}
+
+@media only screen and (min-width: $desktop-small) {
+  .container {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: $desktop) {
+  .container {
+    transform: translateX(calc(50vw - 60%));
+  }
+}
