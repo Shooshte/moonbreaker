@@ -25,7 +25,7 @@ const RostersList = ({ rostersList }: Props) => {
             <Metadata className={styles.score} listID={id} score={score} />
             <Captain className={styles.captain} captain={captain} />
             <Link href={`/roster/${encodeURIComponent(id)}`}>
-              <a className={`heading-4 ${styles.name}`}>{name}</a>
+              <a className={`heading-3 ${styles.name}`}>{name}</a>
             </Link>
           </li>
         );

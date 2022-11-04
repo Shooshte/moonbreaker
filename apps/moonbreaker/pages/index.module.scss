@@ -26,6 +26,7 @@
 
 .score {
   grid-area: score;
+  margin-right: map-get($spacing-sizes, '2');
 }
 
 .captain {
