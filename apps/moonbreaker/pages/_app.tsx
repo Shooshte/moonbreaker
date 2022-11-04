@@ -39,7 +39,7 @@ function CustomApp({ Component, router, pageProps }: AppProps) {
       </Head>
       {/* @ts-expect-error pageProps is not typed correctly */}
       <SessionProvider session={pageProps.session}>
-        <main className="app">
+        <main className="main-container">
           {switchingRoute ? (
             // TODO: Add a loading spinner
             <div>Loading...</div>

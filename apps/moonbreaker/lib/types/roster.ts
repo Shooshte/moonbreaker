@@ -31,3 +31,8 @@ export interface RosterListData {
   score: number;
   userRating: number;
 }
+
+export interface CrewListData {
+  id: number;
+  name: string;
+}

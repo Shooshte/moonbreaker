@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { unstable_getServerSession } from 'next-auth/next';
 
 import Captain from '../components/index/Captain';
+import Crew from '../components/index/Crew';
 import Metadata from '../components/roster/Metadata';
 
 import { authOptions } from './api/auth/[...nextauth]';
@@ -24,6 +25,7 @@ const RostersList = ({ rostersList }: Props) => {
           <li className={styles.rosterContainer} key={`roster-${id}`}>
             <Metadata className={styles.score} listID={id} score={score} />
             <Captain className={styles.captain} captain={captain} />
+            <Crew className={styles.crew} listID={id} />
             <Link href={`/roster/${encodeURIComponent(id)}`}>
               <a className={`heading-3 ${styles.name}`}>{name}</a>
             </Link>

@@ -5,6 +5,7 @@ import { isRosterComplete } from '../utils/roster';
 
 import type { Driver } from 'neo4j-driver';
 import type {
+  CrewListData,
   RosterRequestData,
   RosterData,
   RosterListData,
@@ -500,6 +501,38 @@ export const getRosterUserRating = async ({
     const rating = readResult?.records[0]?.get('rating') || 0;
 
     return rating;
+  } finally {
+    session.close();
+  }
+};
+
+export const getCrewList = async ({
+  driver = defaultDriver,
+  patchName,
+  listID,
+}: {
+  driver?: Driver;
+  patchName: string;
+  listID: string;
+}): Promise<CrewListData[]> => {
+  const session = driver?.session();
+  const readQuery = `
+    MATCH(pa:Patch {name : $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]->(p:PublicList)
+      WHERE id(p) = $listID
+    WITH p
+    MATCH (p)-[:INCLUDES]->(u:Unit)
+      WHERE u.type = 'Crew'
+    WITH COLLECT({name: u.name, id:id(u)}) as crew
+    RETURN crew
+  `;
+
+  try {
+    const readResult = await session?.readTransaction((tx) =>
+      tx.run(readQuery, { patchName, listID: parseInt(listID) })
+    );
+
+    const crewData = readResult?.records[0]?.get('crew') || [];
+    return crewData;
   } finally {
     session.close();
   }

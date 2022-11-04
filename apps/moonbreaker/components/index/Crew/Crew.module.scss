@@ -1,0 +1,44 @@
+@import '../../../styles/variables';
+
+.crew {
+  display: none;
+}
+
+@media only screen and (min-width: $mobile-large) {
+  .crew {
+    display: inline-block;
+    height: 120px;
+    width: 182px;
+    overflow: auto;
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .name {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: $tablet) {
+  .crew {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-start;
+    gap: map-get($spacing-sizes, '3');
+    width: 390px;
+  }
+
+  .name {
+    width: 182px;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
