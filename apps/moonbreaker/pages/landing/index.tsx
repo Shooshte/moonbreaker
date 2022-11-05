@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { unstable_getServerSession } from 'next-auth/next';
+import { useRouter } from 'next/router';
 
 import Captain from '../../components/landing/Captain';
 import Crew from '../../components/landing/Crew';
 import Metadata from '../../components/roster/Metadata';
+import Pagination from '../../components/common/Pagination';
 
 import { authOptions } from '../api/auth/[...nextauth]';
 import { getRostersCount, getRostersList } from '../../lib/db/roster';
@@ -16,12 +18,16 @@ import styles from './index.module.scss';
 const DISPLAYED_ROSTERS = 5;
 
 interface Props {
+  activePage: number;
   rostersCount: number;
   rostersList: RosterListData[];
 }
 
-const RostersList = ({ rostersCount, rostersList }: Props) => {
-  console.log({ rostersCount });
+const RostersList = ({ activePage, rostersCount, rostersList }: Props) => {
+  const router = useRouter();
+  const handlePageChange = (newPage: number) => {
+    router.push(`/landing?page=${newPage}`);
+  };
 
   return (
     <ul className={styles.container}>
@@ -37,6 +43,11 @@ const RostersList = ({ rostersCount, rostersList }: Props) => {
           </li>
         );
       })}
+      <Pagination
+        activePage={activePage}
+        onPageChange={handlePageChange}
+        pageCount={Math.ceil(rostersCount / DISPLAYED_ROSTERS)}
+      />
     </ul>
   );
 };
@@ -64,6 +75,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
+      activePage: pageNumber,
       rostersCount,
       rostersList,
     },

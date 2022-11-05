@@ -1,0 +1,33 @@
+@import '../../../styles/variables';
+
+.container {
+  margin: map-get($spacing-sizes, '2') auto;
+}
+
+.buttons {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  gap: map-get($spacing-sizes, '5');
+  width: 100%;
+  li {
+    align-items: flex-end;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    min-width: 30px;
+  }
+}
+
+.activeButton {
+  color: #3498db;
+  text-decoration: underline;
+}
+
+.activeButton,
+.button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: map-get($font-sizes, '4');
+}

@@ -40,12 +40,14 @@ function CustomApp({ Component, router, pageProps }: AppProps) {
       {/* @ts-expect-error pageProps is not typed correctly */}
       <SessionProvider session={pageProps.session}>
         <main className="main-container">
-          {switchingRoute ? (
-            // TODO: Add a loading spinner
-            <div>Loading...</div>
-          ) : (
-            <Component {...pageProps} />
-          )}
+          <section className="main-content">
+            {switchingRoute ? (
+              // TODO: Add a loading spinner
+              <div>Loading...</div>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </section>
         </main>
       </SessionProvider>
     </>
