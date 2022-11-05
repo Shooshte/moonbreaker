@@ -1,3 +1,5 @@
+import neo4j, { driver } from 'neo4j-driver';
+
 import { defaultDriver } from './driver';
 
 import { getUnitsByType } from './units';
@@ -229,13 +231,40 @@ export const publishRoster = async ({
   return returnData;
 };
 
-export const getRostersList = async ({
+export const getRostersCount = async ({
   driver = defaultDriver,
   patchName,
-  userID,
 }: {
   driver?: Driver;
   patchName: string;
+}): Promise<number> => {
+  const session = driver?.session();
+  const query = `
+    MATCH(pa:Patch {name : $patchName})-[:INCLUDES]->(r:Roster)-[:HAS]->(p:PublicList)
+    RETURN COUNT(DISTINCT p) as count
+    `;
+
+  try {
+    const result = await session?.readTransaction((tx) =>
+      tx.run(query, { patchName })
+    );
+    return result?.records[0].get('count');
+  } finally {
+    session.close();
+  }
+};
+
+export const getRostersList = async ({
+  driver = defaultDriver,
+  limit,
+  patchName,
+  skip,
+  userID,
+}: {
+  driver?: Driver;
+  limit: number;
+  patchName: string;
+  skip: number;
   userID?: string;
 }): Promise<RosterListData[]> => {
   const session = driver?.session();
@@ -257,12 +286,17 @@ export const getRostersList = async ({
       WHERE u2.id = $userID
       WITH COUNT(uuv) AS userUpVotes, userDownVotes, p, r, score, captain
       WITH userUpVotes - userDownVotes as userRating, p, r, captain, score
-    RETURN captain, r.name as name, id(p) as id, score, userRating ORDER BY score DESC
+    RETURN captain, r.name as name, id(p) as id, score, userRating ORDER BY score DESC SKIP $skip  LIMIT $limit
   `;
 
   try {
     const readResult = await session?.readTransaction((tx) =>
-      tx.run(readQuery, { patchName, userID: userID || '' })
+      tx.run(readQuery, {
+        limit: neo4j.int(limit),
+        patchName,
+        skip: neo4j.int(skip),
+        userID: userID || '',
+      })
     );
 
     const parsedData = readResult.records.map((record) => {
