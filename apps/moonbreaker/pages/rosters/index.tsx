@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import { unstable_getServerSession } from 'next-auth/next';
 import { useRouter } from 'next/router';
@@ -30,25 +31,35 @@ const RostersList = ({ activePage, rostersCount, rostersList }: Props) => {
   };
 
   return (
-    <ul className={styles.container}>
-      {rostersList.map(({ captain, id, name, score }) => {
-        return (
-          <li className={styles.rosterContainer} key={`roster-${id}`}>
-            <Metadata className={styles.score} listID={id} score={score} />
-            <Captain className={styles.captain} captain={captain} />
-            <Crew className={styles.crew} listID={id} />
-            <Link href={`/roster/${encodeURIComponent(id)}`}>
-              <a className={`heading-3 ${styles.name}`}>{name}</a>
-            </Link>
-          </li>
-        );
-      })}
-      <Pagination
-        activePage={activePage}
-        onPageChange={handlePageChange}
-        pageCount={Math.ceil(rostersCount / DISPLAYED_ROSTERS)}
-      />
-    </ul>
+    <>
+      <Head>
+        <title>Moonbreaker Rosters List | Roster Breaker</title>
+        <meta
+          content="Find the newest, most popular and most competitive community-made rosters."
+          name="description"
+        />
+      </Head>
+
+      <ul className={styles.container}>
+        {rostersList.map(({ captain, id, name, score }) => {
+          return (
+            <li className={styles.rosterContainer} key={`roster-${id}`}>
+              <Metadata className={styles.score} listID={id} score={score} />
+              <Captain className={styles.captain} captain={captain} />
+              <Crew className={styles.crew} listID={id} />
+              <Link href={`/roster/${encodeURIComponent(id)}`}>
+                <a className={`heading-3 ${styles.name}`}>{name}</a>
+              </Link>
+            </li>
+          );
+        })}
+        <Pagination
+          activePage={activePage}
+          onPageChange={handlePageChange}
+          pageCount={Math.ceil(rostersCount / DISPLAYED_ROSTERS)}
+        />
+      </ul>
+    </>
   );
 };
 

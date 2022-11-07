@@ -35,9 +35,9 @@ function CustomApp({ Component, router, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Roster Breaker: Best Moonbreaker rosters!</title>
+        <title>Best Moonbreaker Rosters | Roster Breaker</title>
         <meta
-          content="A fan-made website for the game Moonbreaker. Find the best and most popular community-made rosters and share your own!"
+          content="A fan-made web app for the PC game Moonbreaker. Find the best, most fun, competitive and most popular community-made rosters and share your own!"
           name="description"
         />
       </Head>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useMemo, useState } from 'react';
 import { unstable_getServerSession } from 'next-auth/next';
+import Head from 'next/head';
 
 import { authOptions } from '../api/auth/[...nextauth]';
 import { getUnitsByType } from '../../lib/db/units';
@@ -92,28 +93,37 @@ const AddRoster = ({ captainsList, crewList }) => {
   };
 
   return (
-    <section className={styles.container}>
-      <h1 className="heading-1">Add new roster</h1>
-      <UnitSelect
-        captainsList={captainsList}
-        crewList={crewList}
-        onConfirm={handleAddUnit}
-        rosterUnitsIDS={rosterUnitsIDS}
-      />
-      <RosterList
-        captainsList={captainsList}
-        crewList={crewList}
-        onRemoveUnit={handleRemoveUnit}
-        rosterUnitsIDS={rosterUnitsIDS}
-      />
-      <RosterName name={rosterName} onNameChange={setRosterName} />
-      <SaveRoster
-        canPublish={canPublish}
-        onPublish={handlePublish}
-        onSaveDraft={handleDraft}
-        isSaving={isSaving}
-      />
-    </section>
+    <>
+      <Head>
+        <title>Add Roster | Roster Breaker</title>
+        <meta
+          content="Create a draft or publish a roster list on Roster Breaker."
+          name="description"
+        />
+      </Head>
+      <section className={styles.container}>
+        <h1 className="heading-1">Add new roster</h1>
+        <UnitSelect
+          captainsList={captainsList}
+          crewList={crewList}
+          onConfirm={handleAddUnit}
+          rosterUnitsIDS={rosterUnitsIDS}
+        />
+        <RosterList
+          captainsList={captainsList}
+          crewList={crewList}
+          onRemoveUnit={handleRemoveUnit}
+          rosterUnitsIDS={rosterUnitsIDS}
+        />
+        <RosterName name={rosterName} onNameChange={setRosterName} />
+        <SaveRoster
+          canPublish={canPublish}
+          onPublish={handlePublish}
+          onSaveDraft={handleDraft}
+          isSaving={isSaving}
+        />
+      </section>
+    </>
   );
 };
 
