@@ -40,25 +40,31 @@ const RostersList = ({ activePage, rostersCount, rostersList }: Props) => {
         />
       </Head>
 
-      <ul className={styles.container}>
-        {rostersList.map(({ captain, id, name, score }) => {
-          return (
-            <li className={styles.rosterContainer} key={`roster-${id}`}>
-              <Metadata className={styles.score} listID={id} score={score} />
-              <Captain className={styles.captain} captain={captain} />
-              <Crew className={styles.crew} listID={id} />
-              <Link href={`/roster/${encodeURIComponent(id)}`}>
-                <a className={`heading-3 ${styles.name}`}>{name}</a>
-              </Link>
-            </li>
-          );
-        })}
-        <Pagination
-          activePage={activePage}
-          onPageChange={handlePageChange}
-          pageCount={Math.ceil(rostersCount / DISPLAYED_ROSTERS)}
-        />
-      </ul>
+      {rostersCount > 0 ? (
+        <ul className={styles.container}>
+          {rostersList.map(({ captain, id, name, score }) => {
+            return (
+              <li className={styles.rosterContainer} key={`roster-${id}`}>
+                <Metadata className={styles.score} listID={id} score={score} />
+                <Captain className={styles.captain} captain={captain} />
+                <Crew className={styles.crew} listID={id} />
+                <Link href={`/roster/${encodeURIComponent(id)}`}>
+                  <a className={`heading-3 ${styles.name}`}>{name}</a>
+                </Link>
+              </li>
+            );
+          })}
+          <Pagination
+            activePage={activePage}
+            onPageChange={handlePageChange}
+            pageCount={Math.ceil(rostersCount / DISPLAYED_ROSTERS)}
+          />
+        </ul>
+      ) : (
+        <p className={`heading-3 ${styles.noRoster}`}>
+          No rosters published for the current Moonbreaker patch.
+        </p>
+      )}
     </>
   );
 };

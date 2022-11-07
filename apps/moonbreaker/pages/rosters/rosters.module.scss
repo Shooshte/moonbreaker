@@ -20,6 +20,11 @@
   margin-right: map-get($spacing-sizes, '2');
 }
 
+.noRoster {
+  max-width: calc($max-text-width / 2);
+  transform: translatey(calc(30vh - 50%));
+}
+
 @media only screen and (min-width: $mobile-large) {
   .rosterContainer {
     grid-template-areas:
