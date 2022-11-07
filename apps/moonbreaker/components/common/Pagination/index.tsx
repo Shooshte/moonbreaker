@@ -13,69 +13,111 @@ const Pagination = ({
   onPageChange,
   pageCount,
 }: Props) => {
-  const showLeftDots = activePage > 3 && pageCount > 5;
-  const showRightDots = activePage <= pageCount - 3 && pageCount > 5;
-
   const handlePageDown = () => {
     if (activePage > 1) {
-      onPageChange(activePage - 1);
+      handlePageChange(activePage - 1);
     }
   };
 
   const handlePageUp = () => {
     if (activePage + 1 <= pageCount) {
-      onPageChange(activePage + 1);
+      handlePageChange(activePage + 1);
     }
   };
+
+  const handlePageChange = (newPage: number) => {
+    if (isNaN(newPage)) {
+      return;
+    }
+
+    if (activePage !== newPage) {
+      onPageChange(newPage);
+    }
+  };
+
+  const getPaginationButtons = (): string[] => {
+    if (pageCount <= 4) {
+      const pages = [...new Array(pageCount)].map((_, index) =>
+        (index + 1).toString()
+      );
+      return pages;
+    }
+
+    const pages = ['1'];
+
+    if (activePage >= 4) {
+      pages.push('...');
+    }
+
+    if (activePage + 1 > pageCount) {
+      pages.push((activePage - 2).toString());
+    }
+
+    if (activePage - 1 > 1) {
+      pages.push((activePage - 1).toString());
+    }
+
+    if (activePage !== 1) {
+      pages.push(activePage.toString());
+    }
+
+    if (activePage + 1 <= pageCount) {
+      pages.push((activePage + 1).toString());
+    }
+
+    if (activePage - 1 <= 0) {
+      pages.push((activePage + 2).toString());
+    }
+
+    if (activePage + 2 < pageCount) {
+      pages.push('...');
+    }
+
+    if (activePage + 1 < pageCount) {
+      pages.push(pageCount.toString());
+    }
+
+    return pages;
+  };
+
+  const paginationButtons = getPaginationButtons();
 
   return pageCount <= 1 ? null : (
     <nav className={`${className} ${styles.container}`}>
       <ul className={styles.buttons}>
-        <li onClick={handlePageDown}>
-          <button className={styles.button}>&lt;</button>
+        <li
+          aria-label="<"
+          className={styles.button}
+          onClick={handlePageDown}
+          role="button"
+        >
+          &lt;
         </li>
-        {activePage !== 1 && (
-          <li onClick={() => onPageChange(1)}>
-            <button
-              className={`${
-                activePage === 1 ? styles.activeButton : styles.button
-              }`}
+
+        {paginationButtons.map((pageNumber) => {
+          const parsedPageNumber = parseInt(pageNumber);
+          const isActive = activePage === parsedPageNumber;
+
+          return (
+            <li
+              aria-label={pageNumber}
+              className={isActive ? styles.activeButton : styles.button}
+              key={`page-${pageNumber}`}
+              role="button"
+              onClick={() => handlePageChange(parsedPageNumber)}
             >
-              1
-            </button>
-          </li>
-        )}
-        {showLeftDots && <li>...</li>}
+              {pageNumber}
+            </li>
+          );
+        })}
 
-        {activePage - 1 > 1 && (
-          <li onClick={handlePageDown}>
-            <button className={styles.button}>{activePage - 1}</button>
-          </li>
-        )}
-        <li>
-          <button className={styles.activeButton}>{activePage}</button>
-        </li>
-        {activePage + 1 < pageCount && (
-          <li onClick={handlePageUp}>
-            <button className={styles.button}>{activePage + 1}</button>
-          </li>
-        )}
-
-        {showRightDots && <li>...</li>}
-        {activePage !== pageCount && (
-          <li onClick={() => onPageChange(pageCount)}>
-            <button
-              className={`${
-                activePage === pageCount ? styles.activeButton : styles.button
-              }`}
-            >
-              {pageCount}
-            </button>
-          </li>
-        )}
-
-        <li onClick={handlePageUp}>
-          <button className={styles.button}>&gt;</button>
+        <li
+          aria-label=">"
+          className={styles.button}
+          onClick={handlePageUp}
+          role="button"
+        >
+          &gt;
         </li>
       </ul>
     </nav>
