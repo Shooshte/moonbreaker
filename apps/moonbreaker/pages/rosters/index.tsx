@@ -27,7 +27,7 @@ interface Props {
 const RostersList = ({ activePage, rostersCount, rostersList }: Props) => {
   const router = useRouter();
   const handlePageChange = (newPage: number) => {
-    router.push(`/landing?page=${newPage}`);
+    router.push(`/rosters?page=${newPage}`);
   };
 
   return (
