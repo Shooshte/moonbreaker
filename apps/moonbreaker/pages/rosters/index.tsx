@@ -13,7 +13,7 @@ import { getRostersCount, getRostersList } from '../../lib/db/roster';
 import type { GetServerSidePropsContext } from 'next';
 import type { RosterListData } from '../../lib/types/roster';
 
-import styles from './index.module.scss';
+import styles from './rosters.module.scss';
 
 const DISPLAYED_ROSTERS = 5;
 

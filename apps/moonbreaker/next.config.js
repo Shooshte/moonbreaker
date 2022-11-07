@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/landing?page=1',
+        destination: '/rosters?page=1',
         permanent: true,
       },
     ];
