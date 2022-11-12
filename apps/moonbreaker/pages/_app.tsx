@@ -41,7 +41,6 @@ function CustomApp({ Component, router, pageProps }: AppProps) {
           name="description"
         />
       </Head>
-      {/* @ts-expect-error pageProps is not typed correctly */}
       <SessionProvider session={pageProps.session}>
         <main className="main-container">
           <section className="main-content">

@@ -5,7 +5,7 @@ import { nxE2EPreset } from '@nrwl/cypress/plugins/cypress-preset';
 require('dotenv').config();
 
 export default defineConfig({
-  e2e: nxE2EPreset(__dirname),
+  e2e: { ...nxE2EPreset(__dirname), baseUrl: 'http://localhost:4200' },
   env: {
     googleClientId: process.env.TEST_GOOGLE_CLIENT_ID,
     googleClientSecret: process.env.TEST_GOOGLE_CLIENT_SECRET,

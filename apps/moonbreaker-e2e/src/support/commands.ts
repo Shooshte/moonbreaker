@@ -1,4 +1,5 @@
 import { encode } from './auth';
+import type { JWTPayload } from 'jose';
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -15,49 +16,18 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       loginByGoogleApi(): void;
-      login(): void;
+      login(userObj: JWTPayload): void;
     }
   }
 }
 
-Cypress.Commands.add('loginByGoogleApi', () => {
-  cy.log('Logging in to Google');
-  cy.request({
-    method: 'POST',
-    url: 'https://www.googleapis.com/oauth2/v4/token',
-    body: {
-      grant_type: 'refresh_token',
-      client_id: Cypress.env('googleClientId'),
-      client_secret: Cypress.env('googleClientSecret'),
-      refresh_token: Cypress.env('googleRefreshToken'),
-    },
-  }).then(({ body }) => {
-    const { access_token, id_token } = body;
-    cy.request({
-      method: 'GET',
-      url: 'https://www.googleapis.com/oauth2/v3/userinfo',
-      headers: { Authorization: `Bearer ${access_token}` },
-    }).then(async ({ body }) => {
-      cy.log(body);
+Cypress.Commands.add('login', (userObj: JWTPayload) => {
+  const sessionResponse = {
+    user: userObj,
+    expires: '3000-12-12T12:09:28.543Z',
+  };
 
-      const sessionData = {
-        user: { ...body },
-        expires: '3000-01-01T00:00:00.000Z',
-        accessToken: access_token,
-      };
-
-      cy.intercept('/api/auth/session', sessionData).as('session');
-
-      const encodedData = await encode(
-        sessionData,
-        Cypress.env('nextAuthJWTSecret')
-      );
-      cy.setCookie('next-auth.session-token', encodedData);
-      Cypress.Cookies.preserveOnce('next-auth.session-token');
-
-      cy.visit('/');
-    });
-  });
+  cy.intercept('/api/auth/session', sessionResponse).as('session');
 });
 
 //

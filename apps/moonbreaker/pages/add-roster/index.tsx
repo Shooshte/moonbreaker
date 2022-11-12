@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useMemo, useState } from 'react';
-import { unstable_getServerSession } from 'next-auth/next';
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-import { authOptions } from '../api/auth/[...nextauth]';
 import { getUnitsByType } from '../../lib/db/units';
 import { isRosterComplete } from '../../lib/utils/roster';
 
@@ -19,6 +19,9 @@ import { MAX_ROSTER_UNITS } from '../..//lib/constants';
 import styles from './AddRoster.module.scss';
 
 const AddRoster = ({ captainsList, crewList }) => {
+  const { status } = useSession();
+  const router = useRouter();
+
   const [isSaving, setIsSaving] = useState(false);
   const [rosterName, setRosterName] = useState('');
   const [rosterUnitsIDS, setRosterUnitsIDS] = useState<string[]>([]);
@@ -92,6 +95,15 @@ const AddRoster = ({ captainsList, crewList }) => {
     setRosterUnitsIDS(newUnits);
   };
 
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status !== 'authenticated') {
+    router.push('/login');
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
@@ -128,21 +140,6 @@ const AddRoster = ({ captainsList, crewList }) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions
-  );
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
-
   const { captainsList, crewList } = await getUnitsByType({
     patchName: 'Pre-Alpha 39919',
   });

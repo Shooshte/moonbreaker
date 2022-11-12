@@ -11,8 +11,8 @@ import type { UnitListData } from '../../lib/types/units';
 import styles from './roster.module.scss';
 
 interface Props {
-  metaData: RosterMetaData;
-  name: string;
+  metaData: RosterMetaData | null;
+  name: string | null;
   units: UnitListData[];
 }
 
@@ -27,7 +27,7 @@ const Roster = ({ metaData, name, units }: Props) => {
       <Metadata
         className={styles.metaData}
         listID={listID}
-        score={metaData.score}
+        score={metaData?.score}
       />
       {/* This is a placeholder element for when descriptions will be added */}
       <div className={styles.description}></div>
@@ -40,17 +40,28 @@ export default Roster;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const listID = parseInt(context.params.id as string);
 
-  const { name, units } = await getRosterInfo({
-    listID,
-  });
+  try {
+    const { name, units } = await getRosterInfo({
+      listID,
+    });
 
-  const metaData = await getRosterMetaData({ listID });
+    const metaData = await getRosterMetaData({ listID });
 
-  return {
-    props: {
-      metaData,
-      name,
-      units,
-    },
-  };
+    return {
+      props: {
+        metaData,
+        name,
+        units,
+      },
+    };
+  } catch (e) {
+    // TODO: Add error handling for when we failed to retrieve roster info
+    return {
+      props: {
+        metaData: null,
+        name: null,
+        units: [],
+      },
+    };
+  }
 }

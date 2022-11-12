@@ -1,15 +1,23 @@
-import { signIn } from 'next-auth/react';
-import { unstable_getServerSession } from 'next-auth/next';
+import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 
-import { authOptions } from '../api/auth/[...nextauth]';
-
 import styles from './Login.module.scss';
 
-import type { GetServerSidePropsContext } from 'next';
-
 const Login = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'authenticated') {
+    router.push('/add-roster');
+    return <div>Loading...</div>;
+  }
+
   const googleLogin = () => {
     signIn('google');
   };
@@ -67,24 +75,5 @@ const Login = () => {
     </>
   );
 };
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions
-  );
-
-  if (session) {
-    return {
-      redirect: {
-        destination: '/add-roster',
-        permanent: false,
-      },
-    };
-  }
-
-  return { props: {} };
-}
 
 export default Login;
