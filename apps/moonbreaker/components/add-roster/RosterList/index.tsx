@@ -47,12 +47,12 @@ const RosterList = ({
 
   return (
     <ul className={styles.container}>
-      <h2 className="heading-2">
+      <h2 className="heading-3">
         Current roster {`(${rosterUnitsIDS.length}/${MAX_ROSTER_UNITS})`}
       </h2>
-      <h3 className="heading-3">Captain</h3>
+      <h3 className="heading-4">Captain</h3>
       <Unit onRemoveUnit={onRemoveUnit} unit={captainData} />
-      <h3 className={`heading-3 ${styles.crewHeading}`}>Crew</h3>
+      <h3 className={`heading-4 ${styles.crewHeading}`}>Crew</h3>
       {unitsData.map((unit, index) => (
         <Unit
           key={unit ? `{unit-list-${unit.id}` : `unit-list-empty-${index}`}

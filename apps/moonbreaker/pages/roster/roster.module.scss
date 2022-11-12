@@ -7,10 +7,7 @@
     'units metaData'
     'units description';
   max-width: $max-text-width;
-  padding: map-get($spacing-sizes, '1');
-  width: calc(
-    100% - map-get($spacing-sizes, '1') - map-get($spacing-sizes, '1')
-  );
+  width: 100%;
 }
 
 .rosterContainer {

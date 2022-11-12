@@ -18,7 +18,7 @@ const Unit = ({ onRemoveUnit, unit }: Props) => {
   };
 
   return (
-    <li className={`heading-4 ${styles.container}`}>
+    <li className={`text ${styles.container}`}>
       {unit ? (
         <>
           {unit?.name}

@@ -114,7 +114,6 @@ const AddRoster = ({ captainsList, crewList }) => {
         />
       </Head>
       <section className={styles.container}>
-        <h1 className="heading-1">Add new roster</h1>
         <UnitSelect
           captainsList={captainsList}
           crewList={crewList}

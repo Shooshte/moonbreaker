@@ -71,7 +71,7 @@ const UnitSelect = ({
 
   return (
     <>
-      <h2 className="heading-2">Add unit to roster</h2>
+      <h2 className="heading-3">Add unit</h2>
       <form
         className={styles.container}
         name="unit-select"

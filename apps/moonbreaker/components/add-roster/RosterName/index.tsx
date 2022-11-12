@@ -15,9 +15,9 @@ const RosterName = ({ name, onNameChange }: Props) => {
 
   return (
     <>
-      <h2 className={`heading-2 ${styles.heading}`}>Roster name</h2>
+      <h2 className={`heading-3 ${styles.heading}`}>Roster name</h2>
       <input
-        className={`heading-3 ${styles.input}`}
+        className={`heading-4 ${styles.input}`}
         type="text"
         value={name}
         onChange={handleNameChange}
