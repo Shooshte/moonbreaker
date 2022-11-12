@@ -27,6 +27,8 @@ Cypress.Commands.add('login', (userObj: JWTPayload) => {
     expires: '3000-12-12T12:09:28.543Z',
   };
 
+  // TODO: add storing session cookie here
+
   cy.intercept('/api/auth/session', sessionResponse).as('session');
 });
 

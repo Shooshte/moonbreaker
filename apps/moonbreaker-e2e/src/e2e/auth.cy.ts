@@ -1,4 +1,5 @@
 import { clearDB } from '../support/database';
+import userData from '../fixtures/user.json';
 
 // TODO: move this to docker database setup
 before(async () => {
@@ -31,13 +32,7 @@ describe('authentication flow', () => {
     PRIVATE_ROUTES.forEach((route) => {
       it(`${route} should not redirect when authenticated`, () => {
         cy.visit('/');
-        cy.login({
-          id: 'cb9a576e-ad96-49c6-a8ce-8fa39a4fcf83',
-          name: 'Miha Šušteršič',
-          email: 'miha.sustersic.work@gmail.com',
-          image:
-            'https://lh3.googleusercontent.com/a/ALm5wu36PI4sffp_QYZ-_q5oD6PeFjoxAk0H8hphGWU1Lw=s96-c',
-        });
+        cy.login(userData);
         cy.visit(route);
         cy.wait('@session');
         cy.url().should('not.include', '/login');
